@@ -7,10 +7,12 @@ class List {                            //Класс СПИСОК
 public:
     List();
     ~List();
+    void insert(T value, int index);
     void pop_front();                   //удалить первый элемент в списке
     void push_back(T data);             //добавить данные в конец списка
     void clear();                       //очистить список
     int GetSize()                       //отдает количество элементов
+
 
     {
         return Size;
@@ -49,6 +51,31 @@ List<T>::~List()
     cout << "Вызвался деструктор "<< endl;
     clear();
 }
+
+template<typename T>
+void List <T>::insert(T value, int index)
+{
+    if (index == 0) 
+    {
+        push_front(value);
+    }
+    else
+    {
+        Node<T>* previous = this->head;
+        for (int i = 0; i < index - 1; i++)
+        {
+            previous = previous->pNext;
+        }
+        Node<T>* newNode = new Node<T>(value, previous->pNext);
+        previous->pNext = newNode;
+        //  previous->pNext = new Node<T>(value, previous->pNext);
+        Size++;
+
+    }
+
+
+}
+
 
 template<typename T>
 void List<T>::pop_front()
@@ -118,26 +145,7 @@ int main()
 
 
     List<int>lst;
- /*   int numberCount;
-    cin >> numberCount;
-
-
-    for (int i = 0; i < numberCount; i++)
-    {
-        lst.push_back(rand() % 90);
-    }
-
-    for (int i = 0; i < lst.GetSize(); i++)
-    {
-        cout << lst[i] << endl;
-    }*/
-  /*  cout << "Начинаем удалять элементы" << endl;
-    while ( lst.GetSize())
-    {
-        lst.pop_front();
-        cout <<"Количество элементов = " << lst.GetSize() << endl;
-    }*/
-    lst.clear();
+ 
     lst.push_front(34);
     lst.push_front(12);
     lst.push_front(32);
@@ -148,6 +156,14 @@ int main()
     {
         cout << lst[i] << endl;
        
+    }
+    cout << endl << endl<< "_________ INSERT _________" << endl << endl << endl;
+    lst.insert(555, 2);
+
+    for (int i = 0; i < lst.GetSize(); i++)
+    {
+        cout << lst[i] << endl;
+
     }
 
     return 0;
