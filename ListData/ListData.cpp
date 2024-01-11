@@ -12,6 +12,7 @@ public:
     void pop_front();                   //удалить первый элемент в списке
     void push_back(T data);             //добавить данные в конец списка
     void clear();                       //очистить список
+    void pop_back();                    //удаление последнего элемента
     int GetSize()                       //отдает количество элементов
     {
         return Size;
@@ -57,6 +58,11 @@ void List<T>::removeAt(int index)
         Size--;
     }
 
+}
+template<typename T>
+void List<T>::pop_back()
+{
+    removeAt(Size - 1);
 }
 
 template<typename T>
@@ -178,9 +184,9 @@ int main()
         cout << lst[i] << endl;
        
     }
-    cout << endl << endl<< "_________ removeAt _________" << endl << endl << endl;
-    lst.removeAt(12);
-
+    cout << endl << endl<< "_________ pop_back _________" << endl << endl << endl;
+    lst.pop_back();
+    lst.pop_back();
     for (int i = 0; i < lst.GetSize(); i++)
     {
         cout << lst[i] << endl;
