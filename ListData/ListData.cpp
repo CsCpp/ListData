@@ -7,13 +7,12 @@ class List {                            //Класс СПИСОК
 public:
     List();
     ~List();
-    void insert(T value, int index);
+    void insert(T value, int index);    //добовление элемента по индексу
+    void removeAt(int index);           //удаление элемента по индексу
     void pop_front();                   //удалить первый элемент в списке
     void push_back(T data);             //добавить данные в конец списка
     void clear();                       //очистить список
     int GetSize()                       //отдает количество элементов
-
-
     {
         return Size;
     };
@@ -37,6 +36,28 @@ private:
     Node<T> *head;                      //указатель на первый 
 };
 
+template<typename T>
+void List<T>::removeAt(int index)
+{
+    if (index == 0)
+    {
+        pop_front();
+    }
+    else
+    {
+        Node<T>* previous = this->head;
+        for (int i = 0; i < index - 1; i++) 
+        {
+            previous = previous->pNext;
+        }
+        Node<T>* toDelete = previous->pNext;
+        previous->pNext = toDelete->pNext;
+        //  previous->pNext = new Node<T>(value, previous->pNext);
+        delete toDelete;
+        Size--;
+    }
+
+}
 
 template<typename T>
 List<T>::List()
@@ -157,8 +178,8 @@ int main()
         cout << lst[i] << endl;
        
     }
-    cout << endl << endl<< "_________ INSERT _________" << endl << endl << endl;
-    lst.insert(555, 2);
+    cout << endl << endl<< "_________ removeAt _________" << endl << endl << endl;
+    lst.removeAt(12);
 
     for (int i = 0; i < lst.GetSize(); i++)
     {
